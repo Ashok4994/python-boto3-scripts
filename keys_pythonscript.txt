@@ -2,7 +2,7 @@ Python script to stop all the running instances which has tag using access key i
 
 #!/usr/bin/python
 from boto3.session import Session
-session = Session(aws_access_key_id=’AKIAJX4RVMXGSAK546HA’,aws_secret_access_key=’C/PJzABvgl+4KXFUfF6nyOE9WcXuTeN161CWkHMd’,region-name='us-east-1')
+session = Session(aws_access_key_id=’.....’,aws_secret_access_key=’..........’,region-name='us-east-1')
 ec2=session.resource('ec2')
 
  filters = [{
