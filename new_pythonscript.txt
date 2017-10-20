@@ -1,0 +1,23 @@
+Python script to stop all the running instances which has tag.
+
+import boto3
+#Setting up connection
+ec2 = boto3.resource('ec2')
+def lambda_handler(event, context):
+# Filtering all running EC2 instances with specified role.
+    filters = [{
+            'Name': 'instance-state-name', 
+            'Values': ['running']
+        },
+          {'Name': 'tag:Role', 
+            'Values': ['MyRoleTagValue']}
+        
+    ]
+instances = ec2.instances.filter(Filters=filters)
+runningInstances = [instance.id for instance in instances]
+#Making sure that there are actually instances to shut down. 
+if len(runningInstances) > 0:
+	shuttingDown = ec2.instances.filter(InstanceIds=runningInstances).stop()
+	print shuttingDown
+else:
+	print "No running instances"

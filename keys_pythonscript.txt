@@ -1,0 +1,23 @@
+Python script to stop all the running instances which has tag using access key id and secret access key.
+
+#!/usr/bin/python
+from boto3.session import Session
+session = Session(aws_access_key_id=’AKIAJX4RVMXGSAK546HA’,aws_secret_access_key=’C/PJzABvgl+4KXFUfF6nyOE9WcXuTeN161CWkHMd’,region-name='us-east-1')
+ec2=session.resource('ec2')
+
+ filters = [{
+            'Name': 'instance-state-name', 
+            'Values': ['running']
+        },
+          {'Name': 'tag:Role', 
+            'Values': ['MyRoleTagValue']}
+        
+    ]
+instances = ec2.instances.filter(Filters=filters)
+runningInstances = [instance.id for instance in instances]
+#Making sure that there are actually instances to shut down. 
+if len(runningInstances) > 0:
+	shuttingDown = ec2.instances.filter(InstanceIds=runningInstances).stop()
+	print shuttingDown
+else:
+	print "No running instances"

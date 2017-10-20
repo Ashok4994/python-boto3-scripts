@@ -1,0 +1,30 @@
+﻿Given rand5 function the gives you 0,1,2,3,4 design rand7 using rand5.  Remember rand functions give you the output with the same probability.
+
+Answer:
+
+a)rand5 function gives values from 0 to 4. So rand7 generates values from 0 to 6.
+b)So by using rand5 we have to generate numbers in multiples of 7 in equal probability and do modulo of 7 to get numbers from 
+0 to 6.
+a)So by using the logic 5*rand5 + rand5 we can generate values with equal probability from 0 to 24.
+       	   5*0 + 0 =0
+	   5*0 + 1 =1
+	   5*0 + 2 =2
+	   ..
+	   ..
+	   ..
+	   5*4 + 4 =24
+So like this we can generate values from 0 to 24.
+b) But to get equal probability we have to consider only numbers from 0 to 20.
+c) If the value of equation is less than 20 we have to do modulo of 7 or else we have to call the function again.
+
+Logic:
+int rand7_gen()
+{
+ int j;
+ j=5*rand5 + rand5;
+ if(j<21)
+ return j%7;
+ return rand7_gen();
+}
+
+
